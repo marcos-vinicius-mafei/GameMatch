@@ -1,7 +1,9 @@
 {
     "plugins": ["prettier"],
+    "ignorePatterns": ["expo-env.d.ts"],
     "rules": {
-      "prettier/prettier": "error"
+      "prettier/prettier": "error",
+      "import/order":"off"
     },
     "extends": ["universe/native","plugin:prettier/recommended"]
 }
