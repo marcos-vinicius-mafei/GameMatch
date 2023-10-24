@@ -6,7 +6,7 @@ interface Props extends TextProps<NativeText> {
   fontFamily?: 'RobotoRegular' | 'RobotoMedium' | 'SpaceMono';
 }
 
-const Typography = ({ fontFamily = 'RobotoRegular', ...rest }: Props) => {
+const Typography = ({ fontFamily = 'RobotoMedium', ...rest }: Props) => {
   return (
     <Text {...rest} style={[rest.style, { fontFamily }]}>
       {rest.children}
