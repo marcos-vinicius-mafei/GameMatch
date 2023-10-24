@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import { View, Text } from '../components/Themed';
+import Typography from '../components/Typography';
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <Typography variant='headlineLarge'>Home</Typography>
     </View>
   );
 };
