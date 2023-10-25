@@ -7,7 +7,12 @@ import {
   MD3LightTheme,
   MD3DarkTheme,
   adaptNavigationTheme,
+  configureFonts,
 } from 'react-native-paper';
+
+const fonts = configureFonts({
+  config: { fontFamily: 'RobotoMedium' },
+});
 
 export const LightTheme: MD3Theme = {
   ...MD3LightTheme,
@@ -53,6 +58,7 @@ export const LightTheme: MD3Theme = {
     onSurfaceDisabled: 'rgba(26, 28, 24, 0.38)',
     backdrop: 'rgba(45, 50, 41, 0.4)',
   },
+  fonts,
 };
 
 export const DarkTheme: MD3Theme = {
@@ -99,6 +105,7 @@ export const DarkTheme: MD3Theme = {
     onSurfaceDisabled: 'rgba(227, 227, 220, 0.38)',
     backdrop: 'rgba(45, 50, 41, 0.4)',
   },
+  fonts,
 };
 
 const { LightTheme: NavigationLight, DarkTheme: NavigationDark } =
