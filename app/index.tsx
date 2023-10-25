@@ -1,8 +1,11 @@
-import { FlatList, Image, StyleSheet, View } from 'react-native';
+import { Dimensions, FlatList, Image, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { Typography, FooterLoading } from '../components';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, FAB } from 'react-native-paper';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+import { Button, FAB, useTheme } from 'react-native-paper';
 
 const isError = false;
 
@@ -17,9 +20,17 @@ function openModal() {
 }
 
 const HomeScreen = () => {
+  const { colors } = useTheme();
+
+  const { bottom } = useSafeAreaInsets();
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.absoulteContainer}>
+      <View
+        style={[
+          styles.absoulteContainer,
+          { bottom: bottom + EXTRA_BOTTOM_SPACE },
+        ]}>
         <FAB icon='magnify' customSize={70} onPress={openModal} />
       </View>
       <View style={styles.inline}>
@@ -40,6 +51,20 @@ const HomeScreen = () => {
       <FlatList
         data={[]}
         renderItem={null}
+        contentContainerStyle={styles.listContent}
+        ListEmptyComponent={
+          <View style={styles.emptyList}>
+            <Typography variant='headlineSmall' style={styles.emptyListTitle}>
+              Use our advanced search to find your next adventure!
+            </Typography>
+            <Image
+              source={require('../assets/images/Arrow.png')}
+              style={styles.arrow}
+              resizeMode='contain'
+              tintColor={colors.onBackground}
+            />
+          </View>
+        }
         ListHeaderComponent={
           <View style={styles.phrasesContainer}>
             <Typography variant='headlineMedium' fontFamily='RussoOne'>
@@ -69,12 +94,35 @@ const HomeScreen = () => {
   );
 };
 
+const { height } = Dimensions.get('window');
+
+const EXTRA_BOTTOM_SPACE = 16;
+
 const styles = StyleSheet.create({
   absoulteContainer: {
     position: 'absolute',
     right: 16,
-    bottom: 40,
     zIndex: 99,
+  },
+  listContent: {
+    flex: 1,
+    paddingBottom: 16,
+  },
+  emptyList: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  emptyListTitle: {
+    textAlign: 'center',
+  },
+  arrow: {
+    height: height * 0.25,
+    aspectRatio: 1,
+    marginBottom: height * 0.055 + EXTRA_BOTTOM_SPACE,
+    alignSelf: 'flex-end',
+    marginRight: 30,
+    marginTop: -10,
   },
   container: {
     position: 'relative',
