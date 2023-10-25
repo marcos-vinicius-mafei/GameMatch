@@ -53,31 +53,9 @@ const HomeScreen = () => {
         renderItem={null}
         contentContainerStyle={styles.listContent}
         ListEmptyComponent={
-          <View style={styles.emptyList}>
-            <Typography variant='headlineSmall' style={styles.emptyListTitle}>
-              Use our advanced search to find your next adventure!
-            </Typography>
-            <Image
-              source={require('../assets/images/Arrow.png')}
-              style={styles.arrow}
-              resizeMode='contain'
-              tintColor={colors.onBackground}
-            />
-          </View>
-        }
-        ListHeaderComponent={
-          <View style={styles.phrasesContainer}>
-            <Typography variant='headlineMedium' fontFamily='RussoOne'>
-              {'Search\nPlay\nHave fun'}
-            </Typography>
-          </View>
-        }
-        ListFooterComponent={
-          isLoading ? (
-            <FooterLoading />
-          ) : isError ? (
+          isError ? (
             <View style={styles.errorContainer}>
-              <Typography variant='headlineMedium' textColor='error'>
+              <Typography variant='headlineMedium' textColor='onSurfaceVariant'>
                 Something went Wrong 😔
               </Typography>
               <Button
@@ -87,8 +65,28 @@ const HomeScreen = () => {
                 Try Again
               </Button>
             </View>
-          ) : null
+          ) : (
+            <View style={styles.emptyList}>
+              <Typography variant='headlineSmall' style={styles.emptyListTitle}>
+                Use our advanced search to find your next adventure!
+              </Typography>
+              <Image
+                source={require('../assets/images/Arrow.png')}
+                style={styles.arrow}
+                resizeMode='contain'
+                tintColor={colors.onBackground}
+              />
+            </View>
+          )
         }
+        ListHeaderComponent={
+          <View style={styles.phrasesContainer}>
+            <Typography variant='headlineMedium' fontFamily='RussoOne'>
+              {'Search\nPlay\nHave fun'}
+            </Typography>
+          </View>
+        }
+        ListFooterComponent={isLoading ? <FooterLoading /> : null}
       />
     </SafeAreaView>
   );
@@ -130,6 +128,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 32,
   },
