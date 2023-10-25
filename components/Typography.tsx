@@ -4,7 +4,7 @@ import { ColorValue, Text as NativeText } from 'react-native';
 import { MD3Colors } from 'react-native-paper/lib/typescript/types';
 
 interface Props extends TextProps<NativeText> {
-  fontFamily?: 'RobotoRegular' | 'RobotoMedium' | 'SpaceMono';
+  fontFamily?: 'RobotoRegular' | 'RobotoMedium' | 'SpaceMono' | 'RussoOne';
   textColor?: keyof MD3Colors;
 }
 

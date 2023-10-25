@@ -33,6 +33,7 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     RobotoRegular: require('../assets/fonts/Roboto-Regular.ttf'),
     RobotoMedium: require('../assets/fonts/Roboto-Medium.ttf'),
+    RussoOne: require('../assets/fonts/RussoOne-Regular.ttf'),
     ...FontAwesome.font,
   });
 

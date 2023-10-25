@@ -8,7 +8,7 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.inline}>
         <View>
-          <Typography variant='headlineLarge' fontFamily='SpaceMono'>
+          <Typography variant='headlineLarge' fontFamily='RussoOne'>
             Game Matcher
           </Typography>
           <Typography variant='titleMedium' textColor='primary'>
