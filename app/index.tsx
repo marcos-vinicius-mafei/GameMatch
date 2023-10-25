@@ -2,7 +2,7 @@ import { FlatList, Image, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { Typography, FooterLoading } from '../components';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from 'react-native-paper';
+import { Button, FAB } from 'react-native-paper';
 
 const isError = false;
 
@@ -12,9 +12,16 @@ function retry() {
   console.log('retry');
 }
 
+function openModal() {
+  console.log('open modal');
+}
+
 const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.absoulteContainer}>
+        <FAB icon='magnify' customSize={70} onPress={openModal} />
+      </View>
       <View style={styles.inline}>
         <View>
           <Typography variant='headlineLarge' fontFamily='RussoOne'>
@@ -63,7 +70,14 @@ const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  absoulteContainer: {
+    position: 'absolute',
+    right: 16,
+    bottom: 40,
+    zIndex: 99,
+  },
   container: {
+    position: 'relative',
     flex: 1,
     paddingHorizontal: 16,
   },
