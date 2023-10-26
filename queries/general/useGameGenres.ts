@@ -13,6 +13,7 @@ const useGameGenres = () => {
       });
       return data;
     },
+    staleTime: Infinity,
   });
 };
 
