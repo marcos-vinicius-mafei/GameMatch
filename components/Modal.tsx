@@ -20,7 +20,7 @@ const Modal = ({ modalRef, snapPoints, index, ...rest }: ModalProps) => {
       {...rest}
       ref={modalRef}
       backdropComponent={BottomSheetBackdrop}
-      index={index || 1}
+      index={index !== undefined ? index : 1}
       snapPoints={snapPoints || ['25%', '50%']}
       handleIndicatorStyle={[
         styles.handle,
