@@ -7,9 +7,7 @@ const usePlatforms = () => {
   return useQuery<ParentPlatform[]>({
     queryKey: generalKeys.platforms(),
     queryFn: async () => {
-      const { data } = await api.get('platforms/lists/parents', {
-        params: { ordering: 'name' },
-      });
+      const { data } = await api.get('platforms/lists/parents');
       return data.results;
     },
     staleTime: Infinity,
