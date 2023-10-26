@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
+import { LogBox, useColorScheme } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import {
   DarkTheme,
@@ -13,6 +13,8 @@ import {
   NavigationLight,
 } from '../styles';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+
+LogBox.ignoreLogs(['Require cycle']);
 
 export {
   // Catch any errors thrown by the Layout component.
