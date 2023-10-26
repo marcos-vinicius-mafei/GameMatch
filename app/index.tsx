@@ -1,5 +1,5 @@
 import { Dimensions, FlatList, Image, StyleSheet, View } from 'react-native';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Typography, FooterLoading, SearchModal } from '../components';
 import {
   SafeAreaView,
@@ -23,13 +23,26 @@ const HomeScreen = () => {
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
+  const [genresIds, setGenresIds] = useState<number[]>([]);
+  const [platformsIds, setPlatformsIds] = useState<number[]>([]);
+
+  function updateFilters(newGenres: number[], newPlatforms: number[]) {
+    setGenresIds(newGenres);
+    setPlatformsIds(newPlatforms);
+  }
+
   const openModal = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      <SearchModal modalRef={bottomSheetModalRef} />
+      <SearchModal
+        modalRef={bottomSheetModalRef}
+        updateFilters={updateFilters}
+        genresIds={genresIds}
+        platformsIds={platformsIds}
+      />
       <View
         style={[
           styles.absoulteContainer,

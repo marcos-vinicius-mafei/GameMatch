@@ -1,5 +1,5 @@
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 import Modal, { ModalProps } from './Modal';
 import Typography from './Typography';
 import { BottomSheetFooter, BottomSheetView } from '@gorhom/bottom-sheet';
@@ -9,9 +9,18 @@ import { Button, Chip } from 'react-native-paper';
 import FooterLoading from './FooterLoading';
 import { BottomSheetDefaultFooterProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetFooter/types';
 
-type Props = Pick<ModalProps, 'modalRef'>;
+type Props = Pick<ModalProps, 'modalRef'> & {
+  updateFilters: (genresIds: number[], platformIds: number[]) => void;
+  genresIds: number[];
+  platformsIds: number[];
+};
 
-const SearchModal = ({ modalRef }: Props) => {
+const SearchModal = ({
+  modalRef,
+  genresIds,
+  platformsIds,
+  updateFilters,
+}: Props) => {
   const {
     data: genresData,
     isError: genreError,
@@ -27,43 +36,83 @@ const SearchModal = ({ modalRef }: Props) => {
 
   const isError = genreError || platformError;
 
-  const renderGenreItem = useCallback(({ item }: { item: Genre }) => {
+  const [activeGenres, setActiveGenres] = useState(genresIds);
+  const [activePlatforms, setActivePlatforms] = useState(platformsIds);
+
+  function onGenrePress(item: Genre) {
+    if (activeGenres.includes(item.id)) {
+      const filteredGenres = activeGenres.filter(el => el !== item.id);
+      setActiveGenres(filteredGenres);
+      return;
+    }
+
+    setActiveGenres([...activeGenres, item.id]);
+  }
+
+  function onPlatformPress(item: ParentPlatform) {
+    if (activePlatforms.includes(item.id)) {
+      const filteredPlatforms = activePlatforms.filter(el => el !== item.id);
+      setActivePlatforms(filteredPlatforms);
+      return;
+    }
+
+    setActivePlatforms([...activePlatforms, item.id]);
+  }
+
+  const renderGenreItem = ({ item }: { item: Genre }) => {
     return (
-      <Chip style={styles.chip} elevated elevation={3}>
+      <Chip
+        style={styles.chip}
+        elevated
+        elevation={3}
+        selected={activeGenres.includes(item.id)}
+        onPress={() => onGenrePress(item)}>
         {item.name}
       </Chip>
     );
-  }, []);
+  };
 
-  const renderPlatformItem = useCallback(
-    ({ item }: { item: ParentPlatform }) => {
-      return (
-        <Chip style={styles.chip} elevated elevation={3}>
-          {item.name}
-        </Chip>
-      );
-    },
-    [],
-  );
+  const renderPlatformItem = ({ item }: { item: ParentPlatform }) => {
+    return (
+      <Chip
+        style={styles.chip}
+        elevated
+        elevation={3}
+        selected={activePlatforms.includes(item.id)}
+        onPress={() => onPlatformPress(item)}>
+        {item.name}
+      </Chip>
+    );
+  };
 
-  const renderFooter = useCallback(
-    (props: BottomSheetDefaultFooterProps) => {
-      if (isError) return null;
-      return (
-        <BottomSheetFooter {...props}>
-          <Button mode='contained' style={styles.searchButton}>
-            <Typography
-              variant='titleLarge'
-              fontFamily='RussoOne'
-              textColor='onPrimary'>
-              Search 😎
-            </Typography>
-          </Button>
-        </BottomSheetFooter>
-      );
-    },
-    [isError],
-  );
+  function onDismiss() {
+    setActiveGenres(genresIds);
+    setActivePlatforms(platformsIds);
+  }
+
+  function onSearchPress() {
+    updateFilters(activeGenres, activePlatforms);
+    (modalRef as any)?.current?.dismiss();
+  }
+
+  const renderFooter = (props: BottomSheetDefaultFooterProps) => {
+    if (isError) return null;
+    return (
+      <BottomSheetFooter {...props}>
+        <Button
+          mode='contained'
+          style={styles.searchButton}
+          onPress={onSearchPress}>
+          <Typography
+            variant='titleLarge'
+            fontFamily='RussoOne'
+            textColor='onPrimary'>
+            Search 😎
+          </Typography>
+        </Button>
+      </BottomSheetFooter>
+    );
+  };
 
   function retry() {
     if (genreError && !isFetchingGenres) {
@@ -79,7 +128,8 @@ const SearchModal = ({ modalRef }: Props) => {
       modalRef={modalRef}
       snapPoints={['30%', '50%', '65%']}
       index={1}
-      footerComponent={renderFooter}>
+      footerComponent={renderFooter}
+      onDismiss={onDismiss}>
       <BottomSheetView style={styles.container}>
         <View style={styles.titleWrapper}>
           <Typography variant='titleLarge' style={styles.title}>
