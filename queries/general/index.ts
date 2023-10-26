@@ -1,4 +1,5 @@
 export { default as useGameGenres } from './useGameGenres';
+export { default as usePlatforms } from './usePlatforms';
 
 export const generalKeys = {
   all: ['general-all'] as const,
