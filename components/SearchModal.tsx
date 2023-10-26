@@ -1,12 +1,27 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
-import React from 'react';
+import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import React, { useCallback } from 'react';
 import Modal, { ModalProps } from './Modal';
 import Typography from './Typography';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
+import { useGameGenres } from '../queries';
+import { Genre } from '../types';
+import { Chip } from 'react-native-paper';
 
 type Props = Pick<ModalProps, 'modalRef'>;
 
 const SearchModal = ({ modalRef }: Props) => {
+  const { data: genresData } = useGameGenres();
+
+  const renderGenreItem = useCallback(({ item }: { item: Genre }) => {
+    return (
+      <Chip style={styles.chip} elevated elevation={3}>
+        {item.name}
+      </Chip>
+    );
+  }, []);
+
+  console.log(genresData);
+
   return (
     <Modal modalRef={modalRef} snapPoints={['30%', '50%', '65%']} index={1}>
       <BottomSheetView>
@@ -23,6 +38,13 @@ const SearchModal = ({ modalRef }: Props) => {
               style={styles.sectionTitle}>
               Genres
             </Typography>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              data={genresData}
+              renderItem={renderGenreItem}
+              contentContainerStyle={styles.sectionList}
+            />
           </View>
         </ScrollView>
       </BottomSheetView>
@@ -48,6 +70,14 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     paddingHorizontal: 16,
+  },
+  sectionList: {
+    paddingLeft: 16,
+    paddingRight: 8,
+    paddingVertical: 16,
+  },
+  chip: {
+    marginRight: 8,
   },
 });
 
