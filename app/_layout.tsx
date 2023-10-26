@@ -12,6 +12,7 @@ import {
   NavigationDark,
   NavigationLight,
 } from '../styles';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -63,12 +64,14 @@ function RootLayoutNav() {
   return (
     <QueryClientProvider client={queryClient}>
       <PaperProvider theme={isDark ? DarkTheme : LightTheme}>
-        <ThemeProvider value={isDark ? NavigationDark : NavigationLight}>
-          <Stack>
-            <Stack.Screen name='index' options={{ headerShown: false }} />
-            <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
-          </Stack>
-        </ThemeProvider>
+        <BottomSheetModalProvider>
+          <ThemeProvider value={isDark ? NavigationDark : NavigationLight}>
+            <Stack>
+              <Stack.Screen name='index' options={{ headerShown: false }} />
+              <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
+            </Stack>
+          </ThemeProvider>
+        </BottomSheetModalProvider>
       </PaperProvider>
     </QueryClientProvider>
   );
