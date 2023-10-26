@@ -8,11 +8,11 @@ import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/typ
 import { useTheme } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 
-interface Props extends BottomSheetModalProps {
+export interface ModalProps extends BottomSheetModalProps {
   modalRef: React.Ref<BottomSheetModalMethods>;
 }
 
-const Modal = ({ modalRef, snapPoints, index, ...rest }: Props) => {
+const Modal = ({ modalRef, snapPoints, index, ...rest }: ModalProps) => {
   const { colors } = useTheme();
 
   return (

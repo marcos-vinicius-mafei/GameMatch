@@ -1,11 +1,12 @@
 import { Dimensions, FlatList, Image, StyleSheet, View } from 'react-native';
-import React from 'react';
-import { Typography, FooterLoading } from '../components';
+import React, { useCallback, useRef } from 'react';
+import { Typography, FooterLoading, SearchModal } from '../components';
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import { Button, FAB, useTheme } from 'react-native-paper';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 const isError = false;
 
@@ -15,17 +16,20 @@ function retry() {
   console.log('retry');
 }
 
-function openModal() {
-  console.log('open modal');
-}
-
 const HomeScreen = () => {
   const { colors } = useTheme();
 
   const { bottom } = useSafeAreaInsets();
 
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const openModal = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
+      <SearchModal modalRef={bottomSheetModalRef} />
       <View
         style={[
           styles.absoulteContainer,
