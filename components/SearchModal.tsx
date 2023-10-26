@@ -2,11 +2,12 @@ import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useCallback } from 'react';
 import Modal, { ModalProps } from './Modal';
 import Typography from './Typography';
-import { BottomSheetView } from '@gorhom/bottom-sheet';
+import { BottomSheetFooter, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useGameGenres, usePlatforms } from '../queries';
 import { Genre, ParentPlatform } from '../types';
 import { Button, Chip } from 'react-native-paper';
 import FooterLoading from './FooterLoading';
+import { BottomSheetDefaultFooterProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetFooter/types';
 
 type Props = Pick<ModalProps, 'modalRef'>;
 
@@ -45,6 +46,25 @@ const SearchModal = ({ modalRef }: Props) => {
     [],
   );
 
+  const renderFooter = useCallback(
+    (props: BottomSheetDefaultFooterProps) => {
+      if (isError) return null;
+      return (
+        <BottomSheetFooter {...props}>
+          <Button mode='contained' style={styles.searchButton}>
+            <Typography
+              variant='titleLarge'
+              fontFamily='RussoOne'
+              textColor='onPrimary'>
+              Search 😎
+            </Typography>
+          </Button>
+        </BottomSheetFooter>
+      );
+    },
+    [isError],
+  );
+
   function retry() {
     if (genreError && !isFetchingGenres) {
       refetchGenres();
@@ -55,7 +75,11 @@ const SearchModal = ({ modalRef }: Props) => {
   }
 
   return (
-    <Modal modalRef={modalRef} snapPoints={['30%', '50%', '65%']} index={1}>
+    <Modal
+      modalRef={modalRef}
+      snapPoints={['30%', '50%', '65%']}
+      index={1}
+      footerComponent={renderFooter}>
       <BottomSheetView style={styles.container}>
         <View style={styles.titleWrapper}>
           <Typography variant='titleLarge' style={styles.title}>
@@ -124,6 +148,11 @@ const SearchModal = ({ modalRef }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  searchButton: {
+    marginBottom: 32,
+    width: '80%',
+    alignSelf: 'center',
+  },
   footerLoading: {
     marginHorizontal: 8,
   },
