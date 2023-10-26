@@ -4,7 +4,7 @@ import Modal, { ModalProps } from './Modal';
 import Typography from './Typography';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { useGameGenres, usePlatforms } from '../queries';
-import { Genre } from '../types';
+import { Genre, ParentPlatform } from '../types';
 import { Button, Chip } from 'react-native-paper';
 import FooterLoading from './FooterLoading';
 
@@ -33,6 +33,17 @@ const SearchModal = ({ modalRef }: Props) => {
       </Chip>
     );
   }, []);
+
+  const renderPlatformItem = useCallback(
+    ({ item }: { item: ParentPlatform }) => {
+      return (
+        <Chip style={styles.chip} elevated elevation={3}>
+          {item.name}
+        </Chip>
+      );
+    },
+    [],
+  );
 
   function retry() {
     if (genreError && !isFetchingGenres) {
@@ -82,6 +93,26 @@ const SearchModal = ({ modalRef }: Props) => {
                 horizontal
                 data={genresData}
                 renderItem={renderGenreItem}
+                contentContainerStyle={styles.sectionList}
+              />
+            </View>
+            <View style={styles.sectionContainer}>
+              <Typography
+                variant='titleMedium'
+                textColor='onSurfaceVariant'
+                style={styles.sectionTitle}>
+                Platforms
+              </Typography>
+              <FlatList
+                ListFooterComponent={
+                  isFetchingPlatforms ? (
+                    <FooterLoading style={styles.footerLoading} />
+                  ) : null
+                }
+                showsHorizontalScrollIndicator={false}
+                horizontal
+                data={platformsData}
+                renderItem={renderPlatformItem}
                 contentContainerStyle={styles.sectionList}
               />
             </View>
