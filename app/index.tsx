@@ -24,10 +24,14 @@ const HomeScreen = () => {
   const [genresIds, setGenresIds] = useState<number[]>([]);
   const [platformsIds, setPlatformsIds] = useState<number[]>([]);
 
-  const { data, isLoading, isError, isFetching, fetchNextPage } = useGames(
-    genresIds,
-    platformsIds,
-  );
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetching,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useGames(genresIds, platformsIds);
 
   const hasData = data.length > 0;
 
@@ -86,7 +90,7 @@ const HomeScreen = () => {
         renderItem={renderGameCard}
         contentContainerStyle={hasData ? styles.gamesList : styles.listContent}
         ListEmptyComponent={
-          isLoading ? (
+          !isFetchingNextPage && isLoading ? (
             <FooterLoading size='large' style={styles.loadingIndicator} />
           ) : isError ? (
             <View style={styles.errorContainer}>
