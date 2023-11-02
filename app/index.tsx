@@ -31,10 +31,10 @@ const HomeScreen = () => {
 
   const hasData = data.length > 0;
 
-  const isFetchingData = isLoading || isFetching;
+  const isFetchingData = hasData && (isLoading || isFetching);
 
   function loadMoreGames() {
-    if (isFetchingData || !hasData) return;
+    if (isFetchingData) return;
     fetchNextPage();
   }
 
@@ -86,7 +86,9 @@ const HomeScreen = () => {
         renderItem={renderGameCard}
         contentContainerStyle={hasData ? styles.gamesList : styles.listContent}
         ListEmptyComponent={
-          isError ? (
+          isLoading ? (
+            <FooterLoading size='large' style={styles.loadingIndicator} />
+          ) : isError ? (
             <View style={styles.errorContainer}>
               <Typography variant='headlineMedium' textColor='onSurfaceVariant'>
                 Something went Wrong 😔
@@ -133,6 +135,9 @@ const { height } = Dimensions.get('window');
 const EXTRA_BOTTOM_SPACE = 16;
 
 const styles = StyleSheet.create({
+  loadingIndicator: {
+    flex: 1,
+  },
   absoulteContainer: {
     position: 'absolute',
     right: 16,
