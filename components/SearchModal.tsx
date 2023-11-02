@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import Modal, { ModalProps } from './Modal';
 import Typography from './Typography';
@@ -14,6 +14,12 @@ type Props = Pick<ModalProps, 'modalRef'> & {
   genresIds: number[];
   platformsIds: number[];
 };
+
+function alertMaxReached(type: 'genres' | 'platforms') {
+  Alert.alert(`You can only select up to 4 ${type}`, undefined, [
+    { text: 'OK', style: 'cancel' },
+  ]);
+}
 
 const SearchModal = ({
   modalRef,
@@ -46,6 +52,11 @@ const SearchModal = ({
       return;
     }
 
+    if (activeGenres.length === 4) {
+      alertMaxReached('genres');
+      return;
+    }
+
     setActiveGenres([...activeGenres, item.id]);
   }
 
@@ -53,6 +64,11 @@ const SearchModal = ({
     if (activePlatforms.includes(item.id)) {
       const filteredPlatforms = activePlatforms.filter(el => el !== item.id);
       setActivePlatforms(filteredPlatforms);
+      return;
+    }
+
+    if (activePlatforms.length === 4) {
+      alertMaxReached('platforms');
       return;
     }
 
