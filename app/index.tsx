@@ -1,6 +1,11 @@
 import { Dimensions, FlatList, Image, StyleSheet, View } from 'react-native';
 import React, { useCallback, useRef, useState } from 'react';
-import { Typography, FooterLoading, SearchModal } from '../components';
+import {
+  Typography,
+  FooterLoading,
+  SearchModal,
+  GameCard,
+} from '../components';
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -43,7 +48,7 @@ const HomeScreen = () => {
   }
 
   function renderGameCard({ item }: { item: Game }) {
-    return <Typography>{item.name}</Typography>;
+    return <GameCard game={item} />;
   }
 
   function updateFilters(newGenres: number[], newPlatforms: number[]) {
