@@ -27,10 +27,13 @@ const useGames = (genresIds: number[], platformsIds: number[]) => {
     getNextPageParam: (lastpage, allPages) =>
       lastpage.next !== null ? allPages.length + 1 : undefined,
     initialPageParam: 1,
-    enabled: genresIds.length > 0,
+    enabled: genresIds.length > 0 && platformsIds.length > 0,
   });
 
-  return { ...query, data: query.data?.pages.flat() || [] };
+  return {
+    ...query,
+    data: query.data?.pages.flatMap(el => el.results) || [],
+  };
 };
 
 export default useGames;
