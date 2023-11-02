@@ -25,10 +25,14 @@ const GameCard = ({ game }: Props) => {
         transition={500}
         style={styles.image}
       />
-      <Typography variant='titleLarge' textColor='onCard' style={styles.title}>
-        {game.name}
-      </Typography>
+
       <View style={styles.content}>
+        <Typography
+          variant='titleLarge'
+          textColor='onCard'
+          style={styles.title}>
+          {game.name}
+        </Typography>
         {game.genres && (
           <CardSection
             title='Genres'
@@ -54,12 +58,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 12,
   },
   title: {
-    marginTop: 16,
     textAlign: 'center',
   },
   content: {
     padding: 16,
-    paddingTop: 0,
   },
 });
 
