@@ -186,12 +186,20 @@ const SearchModal = ({
         ) : (
           <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.sectionContainer}>
-              <Typography
-                variant='titleMedium'
-                textColor='onSurfaceVariant'
-                style={styles.sectionTitle}>
-                {`Genres (max ${MAX_SELECTION.genres})`}
-              </Typography>
+              <View style={styles.sectionHeader}>
+                <Typography
+                  variant='titleMedium'
+                  textColor='onSurfaceVariant'
+                  style={styles.sectionTitle}>
+                  Genres
+                </Typography>
+                <Typography
+                  variant='titleSmall'
+                  textColor='tertiary'
+                  style={styles.sectionTitle}>
+                  {`(Max: ${MAX_SELECTION.genres})`}
+                </Typography>
+              </View>
               <FlatList
                 ListFooterComponent={
                   isFetchingGenres ? (
@@ -206,12 +214,20 @@ const SearchModal = ({
               />
             </View>
             <View style={styles.sectionContainer}>
-              <Typography
-                variant='titleMedium'
-                textColor='onSurfaceVariant'
-                style={styles.sectionTitle}>
-                {`Platforms (max ${MAX_SELECTION.platforms})`}
-              </Typography>
+              <View style={styles.sectionHeader}>
+                <Typography
+                  variant='titleMedium'
+                  textColor='onSurfaceVariant'
+                  style={styles.sectionTitle}>
+                  Platforms
+                </Typography>
+                <Typography
+                  variant='titleSmall'
+                  textColor='tertiary'
+                  style={styles.sectionTitle}>
+                  {`(Max: ${MAX_SELECTION.platforms})`}
+                </Typography>
+              </View>
               <FlatList
                 ListFooterComponent={
                   isFetchingPlatforms ? (
@@ -233,6 +249,11 @@ const SearchModal = ({
 };
 
 const styles = StyleSheet.create({
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   searchButton: {
     marginBottom: 32,
     width: '80%',
