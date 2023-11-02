@@ -13,6 +13,8 @@ interface Props {
 const GameCard = ({ game }: Props) => {
   const { colors } = useTheme();
 
+  const releaseDate = new Date(game.released).toLocaleDateString();
+
   return (
     <View style={[styles.container, { backgroundColor: colors.backdrop }]}>
       <Image
@@ -33,6 +35,7 @@ const GameCard = ({ game }: Props) => {
             value={game.genres.map(el => el.name).join(', ')}
           />
         )}
+        <CardSection title='Release' value={releaseDate} />
       </View>
     </View>
   );
