@@ -7,10 +7,8 @@ import {
 } from 'react-native-safe-area-context';
 import { Button, FAB, useTheme } from 'react-native-paper';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-
-const isError = false;
-
-const isLoading = false;
+import { useGames } from '../queries';
+import { Game } from '../types';
 
 function retry() {
   console.log('retry');
@@ -25,6 +23,24 @@ const HomeScreen = () => {
 
   const [genresIds, setGenresIds] = useState<number[]>([]);
   const [platformsIds, setPlatformsIds] = useState<number[]>([]);
+
+  const { data, isLoading, isError, isFetching, fetchNextPage } = useGames(
+    genresIds,
+    platformsIds,
+  );
+
+  const hasData = data.length > 0;
+
+  const isFetchingData = isLoading || isFetching;
+
+  function loadMoreGames() {
+    if (isFetchingData || !hasData) return;
+    fetchNextPage();
+  }
+
+  function renderGameCard({ item }: { item: Game }) {
+    return <Typography>{item.name}</Typography>;
+  }
 
   function updateFilters(newGenres: number[], newPlatforms: number[]) {
     setGenresIds(newGenres);
@@ -66,9 +82,9 @@ const HomeScreen = () => {
         />
       </View>
       <FlatList
-        data={[]}
-        renderItem={null}
-        contentContainerStyle={styles.listContent}
+        data={data}
+        renderItem={renderGameCard}
+        contentContainerStyle={hasData ? styles.gamesList : styles.listContent}
         ListEmptyComponent={
           isError ? (
             <View style={styles.errorContainer}>
@@ -103,7 +119,10 @@ const HomeScreen = () => {
             </Typography>
           </View>
         }
-        ListFooterComponent={isLoading ? <FooterLoading /> : null}
+        ListHeaderComponentStyle={styles.listHeader}
+        ListFooterComponent={isFetchingData ? <FooterLoading /> : null}
+        ListFooterComponentStyle={styles.footer}
+        onEndReached={loadMoreGames}
       />
     </SafeAreaView>
   );
@@ -122,6 +141,15 @@ const styles = StyleSheet.create({
   listContent: {
     flex: 1,
     paddingBottom: 16,
+  },
+  gamesList: {
+    paddingBottom: 70,
+  },
+  footer: {
+    marginVertical: 32,
+  },
+  listHeader: {
+    marginBottom: 16,
   },
   emptyList: {
     flex: 1,
