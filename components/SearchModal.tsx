@@ -16,9 +16,11 @@ type Props = Pick<ModalProps, 'modalRef'> & {
 };
 
 function alertMaxReached(type: 'genres' | 'platforms') {
-  Alert.alert(`You can only select up to 4 ${type}`, undefined, [
-    { text: 'OK', style: 'cancel' },
-  ]);
+  Alert.alert(
+    `You can only select up to ${MAX_SELECTION[type]} ${type}`,
+    undefined,
+    [{ text: 'OK', style: 'cancel' }],
+  );
 }
 
 function alertSelectBoth() {
@@ -28,6 +30,11 @@ function alertSelectBoth() {
     [{ text: 'OK', style: 'cancel' }],
   );
 }
+
+const MAX_SELECTION = {
+  genres: 4,
+  platforms: 5,
+};
 
 const SearchModal = ({
   modalRef,
@@ -60,7 +67,7 @@ const SearchModal = ({
       return;
     }
 
-    if (activeGenres.length === 4) {
+    if (activeGenres.length === MAX_SELECTION.genres) {
       alertMaxReached('genres');
       return;
     }
@@ -75,7 +82,7 @@ const SearchModal = ({
       return;
     }
 
-    if (activePlatforms.length === 4) {
+    if (activePlatforms.length === MAX_SELECTION.platforms) {
       alertMaxReached('platforms');
       return;
     }
@@ -183,7 +190,7 @@ const SearchModal = ({
                 variant='titleMedium'
                 textColor='onSurfaceVariant'
                 style={styles.sectionTitle}>
-                Genres
+                {`Genres (max ${MAX_SELECTION.genres})`}
               </Typography>
               <FlatList
                 ListFooterComponent={
@@ -203,7 +210,7 @@ const SearchModal = ({
                 variant='titleMedium'
                 textColor='onSurfaceVariant'
                 style={styles.sectionTitle}>
-                Platforms
+                {`Platforms (max ${MAX_SELECTION.platforms})`}
               </Typography>
               <FlatList
                 ListFooterComponent={
