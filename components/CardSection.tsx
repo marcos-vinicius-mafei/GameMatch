@@ -10,10 +10,12 @@ interface Props {
 const CardSection = ({ title, value }: Props) => {
   return (
     <View style={styles.container}>
-      <Typography variant='titleMedium' style={styles.title}>
+      <Typography variant='titleMedium' textColor='onCard' style={styles.title}>
         {title}
       </Typography>
-      <Typography variant='labelMedium'>{value}</Typography>
+      <Typography variant='labelMedium' textColor='onCard'>
+        {value}
+      </Typography>
     </View>
   );
 };

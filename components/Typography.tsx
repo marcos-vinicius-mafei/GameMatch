@@ -1,11 +1,11 @@
-import { Text, TextProps, useTheme } from 'react-native-paper';
+import { Text, TextProps } from 'react-native-paper';
 import React from 'react';
 import { ColorValue, Text as NativeText } from 'react-native';
-import { MD3Colors } from 'react-native-paper/lib/typescript/types';
+import useAppTheme, { AppColors } from '../hooks/useAppTheme';
 
 interface Props extends TextProps<NativeText> {
   fontFamily?: 'RobotoRegular' | 'RobotoMedium' | 'SpaceMono' | 'RussoOne';
-  textColor?: keyof MD3Colors;
+  textColor?: keyof AppColors;
 }
 
 const Typography = ({
@@ -13,7 +13,7 @@ const Typography = ({
   textColor = 'onSurface',
   ...rest
 }: Props) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
   return (
     <Text
       {...rest}

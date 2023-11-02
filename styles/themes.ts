@@ -3,7 +3,6 @@ import {
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
 import {
-  MD3Theme,
   MD3LightTheme,
   MD3DarkTheme,
   adaptNavigationTheme,
@@ -14,7 +13,7 @@ const fonts = configureFonts({
   config: { fontFamily: 'RobotoMedium' },
 });
 
-export const LightTheme: MD3Theme = {
+export const LightTheme = {
   ...MD3LightTheme,
   colors: {
     primary: 'rgb(38, 109, 1)',
@@ -57,11 +56,13 @@ export const LightTheme: MD3Theme = {
     surfaceDisabled: 'rgba(26, 28, 24, 0.12)',
     onSurfaceDisabled: 'rgba(26, 28, 24, 0.38)',
     backdrop: 'rgba(45, 50, 41, 0.4)',
+    card: 'rgba(45, 50, 40, 0.9)',
+    onCard: 'rgb(227, 227, 220)',
   },
   fonts,
 };
 
-export const DarkTheme: MD3Theme = {
+export const DarkTheme = {
   ...MD3DarkTheme,
   colors: {
     primary: 'rgb(141, 218, 105)',
@@ -104,6 +105,8 @@ export const DarkTheme: MD3Theme = {
     surfaceDisabled: 'rgba(227, 227, 220, 0.12)',
     onSurfaceDisabled: 'rgba(227, 227, 220, 0.38)',
     backdrop: 'rgba(45, 50, 41, 0.4)',
+    card: 'rgba(45, 50, 40, 0.9)',
+    onCard: 'rgb(227, 227, 220)',
   },
   fonts,
 };

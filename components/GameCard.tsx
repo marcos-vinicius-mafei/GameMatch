@@ -2,21 +2,21 @@ import { View, StyleSheet } from 'react-native';
 import React from 'react';
 import { Game } from '../types';
 import { Image } from 'expo-image';
-import { useTheme } from 'react-native-paper';
 import Typography from './Typography';
 import CardSection from './CardSection';
+import { useAppTheme } from '../hooks';
 
 interface Props {
   game: Game;
 }
 
 const GameCard = ({ game }: Props) => {
-  const { colors } = useTheme();
+  const { colors } = useAppTheme();
 
   const releaseDate = new Date(game.released).toLocaleDateString();
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.backdrop }]}>
+    <View style={[styles.container, { backgroundColor: colors.card }]}>
       <Image
         source={game.background_image}
         contentFit='fill'
@@ -25,7 +25,7 @@ const GameCard = ({ game }: Props) => {
         transition={500}
         style={styles.image}
       />
-      <Typography variant='titleLarge' style={styles.title}>
+      <Typography variant='titleLarge' textColor='onCard' style={styles.title}>
         {game.name}
       </Typography>
       <View style={styles.content}>
