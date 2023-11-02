@@ -21,6 +21,14 @@ function alertMaxReached(type: 'genres' | 'platforms') {
   ]);
 }
 
+function alertSelectBoth() {
+  Alert.alert(
+    'You must select at least one genre and one platform',
+    undefined,
+    [{ text: 'OK', style: 'cancel' }],
+  );
+}
+
 const SearchModal = ({
   modalRef,
   genresIds,
@@ -107,6 +115,10 @@ const SearchModal = ({
   }
 
   function onSearchPress() {
+    if (!activeGenres.length || !activePlatforms.length) {
+      alertSelectBoth();
+      return;
+    }
     updateFilters(activeGenres, activePlatforms);
     (modalRef as any)?.current?.dismiss();
   }
