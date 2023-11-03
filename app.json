@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "GameMatcher",
-    "slug": "GameMatcher",
+    "slug": "gamematcher",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -16,13 +16,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.marcosmafei.gamematcher"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.marcosmafei.gamematcher"
     },
     "web": {
       "bundler": "metro",
@@ -34,6 +36,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c5c52cbb-18bd-4f95-b01b-0c2d4f79b201"
+      }
+    },
+    "owner": "marcosmafei"
   }
 }
