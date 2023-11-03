@@ -6,11 +6,13 @@ import useAppTheme, { AppColors } from '../hooks/useAppTheme';
 interface Props extends TextProps<NativeText> {
   fontFamily?: 'RobotoRegular' | 'RobotoMedium' | 'SpaceMono' | 'RussoOne';
   textColor?: keyof AppColors;
+  customColor?: ColorValue;
 }
 
 const Typography = ({
   fontFamily = 'RobotoMedium',
   textColor = 'onSurface',
+  customColor,
   ...rest
 }: Props) => {
   const { colors } = useAppTheme();
@@ -19,7 +21,7 @@ const Typography = ({
       {...rest}
       style={[
         rest.style,
-        { fontFamily, color: colors[textColor] as ColorValue },
+        { fontFamily, color: customColor || (colors[textColor] as ColorValue) },
       ]}>
       {rest.children}
     </Text>

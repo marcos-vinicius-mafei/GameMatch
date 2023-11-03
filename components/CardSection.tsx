@@ -4,16 +4,31 @@ import Typography from './Typography';
 
 interface Props {
   title: string;
-  value: string;
+  value: string | number;
+  metacriticSection?: boolean;
 }
 
-const CardSection = ({ title, value }: Props) => {
+function getMetacriticColor(value: number) {
+  if (value > 70) {
+    return '#00CE7A';
+  } else if (value < 50) {
+    return '#FF6873';
+  }
+  return '#FFBD3F';
+}
+
+const CardSection = ({ title, value, metacriticSection }: Props) => {
   return (
     <View style={styles.container}>
       <Typography variant='titleMedium' textColor='onCard' style={styles.title}>
         {title}
       </Typography>
-      <Typography variant='labelMedium' textColor='onCard'>
+      <Typography
+        variant='labelMedium'
+        textColor='onCard'
+        customColor={
+          metacriticSection ? getMetacriticColor(value as number) : undefined
+        }>
         {value}
       </Typography>
     </View>

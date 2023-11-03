@@ -50,6 +50,13 @@ const GameCard = ({ game }: Props) => {
         {platforms !== undefined && (
           <CardSection title='Platforms' value={platforms} />
         )}
+        {game.metacritic !== undefined && (
+          <CardSection
+            title='Metacritic'
+            value={game.metacritic}
+            metacriticSection
+          />
+        )}
       </View>
     </View>
   );
