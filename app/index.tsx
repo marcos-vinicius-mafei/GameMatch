@@ -5,6 +5,7 @@ import {
   FooterLoading,
   SearchModal,
   GameCard,
+  RawgBacklink,
 } from '../components';
 import {
   SafeAreaView,
@@ -83,6 +84,7 @@ const HomeScreen = () => {
           <Typography variant='titleMedium' textColor='primary'>
             Find your next favorite game
           </Typography>
+          <RawgBacklink />
         </View>
         <Image
           style={styles.image}
