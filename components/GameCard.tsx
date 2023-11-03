@@ -15,6 +15,10 @@ const GameCard = ({ game }: Props) => {
 
   const releaseDate = new Date(game.released).toLocaleDateString();
 
+  const platforms = game.parent_platforms
+    ?.map(el => el?.platform?.name)
+    .join(', ');
+
   return (
     <View style={[styles.container, { backgroundColor: colors.card }]}>
       <Image
@@ -33,13 +37,19 @@ const GameCard = ({ game }: Props) => {
           style={styles.title}>
           {game.name}
         </Typography>
+        {game.released !== undefined && (
+          <CardSection title='Release' value={releaseDate} />
+        )}
         {game.genres && (
           <CardSection
             title='Genres'
             value={game.genres.map(el => el.name).join(', ')}
           />
         )}
-        <CardSection title='Release' value={releaseDate} />
+
+        {platforms !== undefined && (
+          <CardSection title='Platforms' value={platforms} />
+        )}
       </View>
     </View>
   );
@@ -53,7 +63,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 150,
+    height: 160,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
   },
