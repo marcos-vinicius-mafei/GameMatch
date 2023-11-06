@@ -50,7 +50,7 @@ const GameCard = ({ game }: Props) => {
         {platforms !== undefined && (
           <CardSection title='Platforms' value={platforms} />
         )}
-        {game.metacritic !== undefined && (
+        {game.metacritic !== null && (
           <CardSection
             title='Metacritic'
             value={game.metacritic}
