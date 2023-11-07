@@ -96,7 +96,7 @@ const SearchModal = ({
       <Chip
         style={styles.chip}
         elevated
-        elevation={3}
+        elevation={2}
         selected={activeGenres.includes(item.id)}
         onPress={() => onGenrePress(item)}>
         {item.name}
@@ -109,7 +109,7 @@ const SearchModal = ({
       <Chip
         style={styles.chip}
         elevated
-        elevation={3}
+        elevation={2}
         selected={activePlatforms.includes(item.id)}
         onPress={() => onPlatformPress(item)}>
         {item.name}
