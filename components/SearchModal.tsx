@@ -1,4 +1,5 @@
-import { Alert, FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import Modal, { ModalProps } from './Modal';
 import Typography from './Typography';
