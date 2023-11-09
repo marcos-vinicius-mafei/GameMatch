@@ -1,0 +1,20 @@
+diff --git a/node_modules/react-native-paper/src/styles/fonts.tsx b/node_modules/react-native-paper/src/styles/fonts.tsx
+index 3f68899..a27d4ed 100644
+--- a/node_modules/react-native-paper/src/styles/fonts.tsx
++++ b/node_modules/react-native-paper/src/styles/fonts.tsx
+@@ -1,5 +1,5 @@
+ import { Platform, PlatformOSType } from 'react-native';
+-
++import { RFValue } from 'react-native-responsive-fontsize';
+ import { typescale } from './themes/v3/tokens';
+ import type { Fonts, MD3Type, MD3Typescale, MD3TypescaleKey } from '../types';
+ 
+@@ -93,7 +93,7 @@ function configureV3Fonts(
+     return Object.fromEntries(
+       Object.entries(typescale).map(([variantName, variantProperties]) => [
+         variantName,
+-        { ...variantProperties, ...config },
++        { ...variantProperties, ...config, fontSize: RFValue(variantProperties.fontSize)},
+       ])
+     ) as MD3Typescale;
+   }
